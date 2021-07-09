@@ -23,6 +23,7 @@ import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
 
+//commit test consistenza
 public class BBallScene implements Scene{
     private ArrayList<EnemyItem> enemyItems;
 

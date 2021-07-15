@@ -70,7 +70,7 @@ public class GameHud implements IHud {
         lost = true;
         nameValueTextItem.setText(name.toString());
         gameItems.add(nameValueTextItem);
-        nameTextItem.setText("PRESS ENTER TO REPLAY");
+        nameTextItem.setText("PRESS esc TO GO BACK");
         gameItems.add(nameTextItem);
 
     }

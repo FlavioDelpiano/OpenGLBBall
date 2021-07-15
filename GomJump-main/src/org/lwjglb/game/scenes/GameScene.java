@@ -314,7 +314,7 @@ public class GameScene implements Scene {
     public void init(Window window, GameData data) throws Exception {
         EnemyItem.init();
         PlatformItem.initPlatform();
-        gameHud = new GameHud("Press space to start");
+        gameHud = new GameHud("Press enter to start");
         gameHud.updateSize(window);
         for (int i = 0; i < 3; i++) {
             lives[i] = new PlayerCharacter(data.getPlayerSkinIndex(), 0.023f);

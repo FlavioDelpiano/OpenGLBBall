@@ -55,7 +55,7 @@ public class GomGame implements IGameLogic {
             running.stop();
             running.cleanup();
             if (menu)
-                running = new GameScene(data);
+                running = new BBallScene(data);
             else
                 running = new MenuScene();
             menu = !menu;

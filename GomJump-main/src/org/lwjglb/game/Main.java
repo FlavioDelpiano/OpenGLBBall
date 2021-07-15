@@ -9,7 +9,7 @@ public class Main {
     public static void main(String[] args) {
         try {
             IGameLogic gameLogic = new GomGame();
-            GameEngine gameEng = new GameEngine("Gom jump", 960, 540, true, gameLogic);
+            GameEngine gameEng = new GameEngine("Gom jump", 600, 960, true, gameLogic);
             gameEng.run();
         } catch (Exception exception) {
             exception.printStackTrace();

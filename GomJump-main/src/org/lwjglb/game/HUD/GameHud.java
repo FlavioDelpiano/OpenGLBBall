@@ -13,14 +13,14 @@ import java.util.List;
 
 public class GameHud implements IHud {
 
-    private static final Font FONT = new Font("Arial", Font.PLAIN, 20);
-    private static final Font NAMEFONT = new Font("Arial", Font.PLAIN, 40);
+    private static final Font FONT = new Font("Arial", Font.BOLD, 20);
+    private static final Font NAMEFONT = new Font("Arial", Font.BOLD, 40);
 
     private static final String CHARSET = "ISO-8859-1";
 
     private final ArrayList<GameItem> gameItems = new ArrayList<>();
 
-    private final TextItem statusTextItem, lifeTextItem, nameTextItem, nameValueTextItem, powerupTextItem;
+    private final TextItem scoreTextItem, nameTextItem, nameValueTextItem;
 
     private final StringBuilder name = new StringBuilder("");
 
@@ -28,21 +28,16 @@ public class GameHud implements IHud {
 
     public GameHud(String statusText) throws Exception {
         FontTexture fontTexture = new FontTexture(FONT, CHARSET), nameFontTexture = new FontTexture(NAMEFONT, CHARSET);
-        statusTextItem = new TextItem(statusText, fontTexture);
-        statusTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
-
-        lifeTextItem = new TextItem(statusText, fontTexture);
-        lifeTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
-
-        powerupTextItem = new TextItem("Platform: ", fontTexture);
-        gameItems.add(powerupTextItem);
-
-        gameItems.add(statusTextItem);
-        statusTextItem.setText(statusText);
+        scoreTextItem = new TextItem(statusText, fontTexture);
+        scoreTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
 
 
-        gameItems.add(lifeTextItem);
-        lifeTextItem.setText("Lives: ");
+
+
+
+        gameItems.add(scoreTextItem);
+        scoreTextItem.setText(statusText);
+
 
 
         nameTextItem = new TextItem("", nameFontTexture);
@@ -51,7 +46,7 @@ public class GameHud implements IHud {
     }
 
     public void setStatusText(String statusText) {
-        this.statusTextItem.setText(statusText);
+        this.scoreTextItem.setText(statusText);
     }
 
 
@@ -62,12 +57,12 @@ public class GameHud implements IHud {
 
     public void updateSize(Window window) {
 
-        lifeTextItem.setPosition(10f, window.getHeight() - 950f, 0);
-        statusTextItem.setPosition(10f, window.getHeight() - 90f, 0);
-        powerupTextItem.setPosition(280f, window.getHeight() - 950f, 0);
+
+        scoreTextItem.setPosition(10f, window.getHeight() - 90f, 0);
+
         if (lost) {
-            nameTextItem.setPosition(125f, window.getHeight() - 450f, 0);
-            nameValueTextItem.setPosition(245f, window.getHeight() - 450f, 0);
+            nameTextItem.setPosition(40f, window.getHeight() - 450f, 0);
+
         }
     }
 
@@ -75,7 +70,7 @@ public class GameHud implements IHud {
         lost = true;
         nameValueTextItem.setText(name.toString());
         gameItems.add(nameValueTextItem);
-        nameTextItem.setText("Name:");
+        nameTextItem.setText("PRESS ENTER TO REPLAY");
         gameItems.add(nameTextItem);
 
     }

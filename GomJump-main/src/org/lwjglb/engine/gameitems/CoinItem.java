@@ -34,15 +34,14 @@ public class CoinItem extends GameItem {
         material.setTexture(textures[index]);
     }
 
-    public CoinItem(PlatformItem platformItem, int index){
+    public CoinItem(float x, int index){
         super(mesh);
         material.setTexture(textures[index]);
         mesh.setMaterial(material);
-        Vector3f vec = new Vector3f(platformItem.getPosition());
-        vec.y += 0.05f;
-        vec.z += 0.07;
+        setPosition(x, 1.4f, -2);
+
         setScale(0.06f);
-        setPosition(vec);
+
     }
 
     public CoinItem( int index) {

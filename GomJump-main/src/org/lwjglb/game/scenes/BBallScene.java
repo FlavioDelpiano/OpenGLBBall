@@ -75,6 +75,7 @@ public class BBallScene implements Scene{
     @Override
     public List<GameItem> getGameItems() {
         ArrayList<GameItem> gameItems = new ArrayList<>();
+        gameItems.add(character);
         gameItems.addAll(bottleItems);
         gameItems.addAll(Arrays.asList(lives).subList(0, livesCount));
         gameItems.addAll(enemyItems);
@@ -86,7 +87,7 @@ public class BBallScene implements Scene{
         gameHud.updateSize(window);
         if (!lost) {
             if (!start) return;
-            final float verticalSpeed = 0.002f;
+            final float verticalSpeed = 0.002f, horizontalSpeed = 1.2f;
 
             if (character != null && hit == false) {
                 distance += characterSpeed * interval;
@@ -98,7 +99,12 @@ public class BBallScene implements Scene{
                     try {
                         var val = itemsRandom.nextDouble();
                         if (val >= 0.92 ) { // aggiungere all'if condizione di distanza minima
-                            EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f); // cambiare meto
+                            EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
+                            if(val <= 0.95)
+                            {
+                                bottleItems.add(new CoinItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getCoinSkinIndex()));// cambiare meto
+                            }
+
                             boolean set = true;
                             for (var b : bottleItems) {
                                 if (b.isColliding(enemy.getCollider())) {
@@ -131,21 +137,18 @@ public class BBallScene implements Scene{
                 enemyItems.forEach(enemyItem -> updateItem(enemyItem, toRemoveEnemy));
                 enemyItems.removeAll(toRemoveEnemy);
 
-                Vector3f position = character.getPosition();
-                position.y += characterSpeed;
-                character.setPosition(position);
             }
 
             if (character != null && left != right) {
                 if (left) {
                     left = false;
                     Vector3f position = character.getPosition();
-                    position.x -= verticalSpeed * interval;
+                    position.x -= horizontalSpeed * interval;
                 }
                 if (right) {
                     right = false;
                     Vector3f position = character.getPosition();
-                    position.x += verticalSpeed * interval;
+                    position.x += horizontalSpeed * interval;
                 }
             } else {
                 left = right = false;
@@ -181,8 +184,13 @@ public class BBallScene implements Scene{
                 }
             }
 
-            if (score >= 850) enemyItems.forEach(enemyItem -> enemyItem.updatePosition(interval));
+            // decidere se lasciarla ad un certo livello o per sempre
+            if (score >= 0) enemyItems.forEach(enemyItem -> enemyItem.updatePosition(interval));
 
+
+            if (character != null) {
+                gameHud.setStatusText(String.format("%07d", score));
+            }
 
 
         } else if (character != null) { // da capire
@@ -249,6 +257,9 @@ public class BBallScene implements Scene{
         gameHud.updateSize(window);
 
         character = new PlayerCharacter(data.getPlayerSkinIndex(), 0.06f);
+        Vector3f position = character.getPosition();
+        position.y -= 0.6f;
+        character.setPosition(position);
         bottleItems = new ArrayList<>();
         enemyItems = new ArrayList<>();
 

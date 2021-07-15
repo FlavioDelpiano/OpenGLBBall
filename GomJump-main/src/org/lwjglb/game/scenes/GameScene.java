@@ -128,7 +128,7 @@ public class GameScene implements Scene {
                             PlatformItem platformItem = new PlatformItem(1.7f - (previous_distance - 0.015f));
                             platformItems.add(platformItem);
                             if (platformRandom.nextDouble() >= 0.85)
-                                coinItems.add(new CoinItem(platformItem, data.getCoinSkinIndex()));
+                                //coinItems.add(new CoinItem(platformItem, data.getCoinSkinIndex()));
                             notCreated = 0;
                         } else {
                             notCreated++;

@@ -11,8 +11,8 @@ public class SkyBox extends GameItem {
 
     public static void init() throws Exception {
         skyBoxMesh = OBJLoader.loadMesh("/models/bg.obj");
-        Texture skyBoxtexture = new Texture("./textures/space.png");
-        skyBoxMesh.setMaterial(new Material(skyBoxtexture, 0.1f));
+        Texture skyBoxTexture = new Texture("./textures/skybox.png");
+        skyBoxMesh.setMaterial(new Material(skyBoxTexture, 0.5f));
     }
 
     public SkyBox(){

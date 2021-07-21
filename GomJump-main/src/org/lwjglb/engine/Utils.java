@@ -21,7 +21,7 @@ import java.util.Scanner;
 public class Utils {
 
     public static void initItems() throws Exception {
-        CoinItem.initCoin();
+        BottleItem.initCoin();
         PlayerCharacter.init();
         SkyBox.init();
     }

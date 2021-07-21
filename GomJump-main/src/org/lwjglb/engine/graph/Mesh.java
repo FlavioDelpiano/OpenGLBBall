@@ -43,7 +43,6 @@ public class Mesh {
 
     private final int vertexCount;
 
-
     private float minX, maxX, minY, maxY;
 
     private Material material;

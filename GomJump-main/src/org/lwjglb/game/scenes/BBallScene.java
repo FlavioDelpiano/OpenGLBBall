@@ -26,9 +26,7 @@ import static org.lwjgl.glfw.GLFW.*;
 public class BBallScene implements Scene{
     private ArrayList<EnemyItem> enemyItems;
 
-    private ArrayList<GameItem> platformItems;
-
-    private ArrayList<CoinItem> bottleItems;
+    private ArrayList<BottleItem> bottleItems;
 
     private PlayerCharacter character;
 
@@ -46,8 +44,6 @@ public class BBallScene implements Scene{
 
     private float previous_distance = 0, distance = 0, characterSpeed = 0;
 
-    private static final Random randomPlatform = new Random(System.currentTimeMillis());
-
     private static final Random itemsRandom = new Random(System.currentTimeMillis());
 
     private int livesCount = 3;
@@ -63,6 +59,8 @@ public class BBallScene implements Scene{
     private boolean lost = false;
 
     private boolean start = false;
+
+    private float interval;
 
     private final PlayerCharacter[] lives = new PlayerCharacter[3]; // da creare un life item
 
@@ -84,6 +82,8 @@ public class BBallScene implements Scene{
 
     @Override
     public void update(float interval, Window window) {
+
+        this.interval = interval;
         gameHud.updateSize(window);
         if (!lost) {
             if (!start) return;
@@ -95,6 +95,8 @@ public class BBallScene implements Scene{
                 previous_distance += distance;
                 distance = distance % 0.01f;
 
+                character.rotate(interval);
+
                 if (previous_distance > 0.025f) {
                     try {
                         var val = itemsRandom.nextDouble();
@@ -102,7 +104,7 @@ public class BBallScene implements Scene{
                             EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
                             if(val <= 0.95)
                             {
-                                bottleItems.add(new CoinItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getCoinSkinIndex()));// cambiare meto
+                                bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getCoinSkinIndex()));// cambiare meto
                             }
 
                             boolean set = true;
@@ -144,32 +146,35 @@ public class BBallScene implements Scene{
                     left = false;
                     Vector3f position = character.getPosition();
                     position.x -= horizontalSpeed * interval;
+
                 }
                 if (right) {
                     right = false;
                     Vector3f position = character.getPosition();
                     position.x += horizontalSpeed * interval;
+
                 }
             } else {
                 left = right = false;
             }
 
-            CoinItem coin = null;
+            BottleItem bottle = null;
             if (character != null) {
-                for (CoinItem c : bottleItems) {
-                    if (c.isColliding(character.getCollider())) {
-                        coin = c;
+                for (BottleItem b : bottleItems) {
+                    if (b.isColliding(character.getCollider())) {
+                        bottle = b;
                         soundManager.playSoundSource("coin");
                         break;
                     }
                 }
             }
-            if (coin != null) {
-                bottleItems.remove(coin);
+            if (bottle != null) {
+                bottleItems.remove(bottle);
                 increaseScore(30);
             }
 
             EnemyItem enemy = null;
+
             if (character != null) {
                 for (EnemyItem e : enemyItems) {
                     if (e.isColliding(character.getCollider())) {
@@ -206,6 +211,7 @@ public class BBallScene implements Scene{
             gameHud.gameLost();
             character = null;
         }
+
     }
 
     private void updateItem(GameItem item, ArrayList<GameItem> list) {
@@ -230,6 +236,8 @@ public class BBallScene implements Scene{
         score += value;
 
     }
+
+
 
     @Override
     public void input(Window window) {

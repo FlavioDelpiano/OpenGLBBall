@@ -8,21 +8,21 @@ import org.lwjglb.engine.graph.OBJLoader;
 import static org.joml.Math.sin;
 public class TitleItem  extends GameItem{
 
-    private float titleInterval = 0;
+    private float titleInt = 0;
 
     public TitleItem() throws Exception {
         super(OBJLoader.loadMesh("/models/title.obj"));
-        Material mat = new Material(new Vector4f(1f, 0.71f, 0.35f, 1f), 1f);
+        Material mat = new Material(new Vector4f(0.9f, 0.5f, 0.2f, 1f), 0f);
         getMesh().setMaterial(mat);
         setPosition(0, 0.25f, -0.45f);
-        setScale(0.11f);
+        setScale(0.1f);
     }
 
     public void updateTitle(float interval) {
-        titleInterval += interval;
-        if (titleInterval >= 3.1415 * 2 * 3) {
-            titleInterval -= 3.1415 * 2 * 3;
+        titleInt += interval;
+        if (titleInt >= 3.1415 * 2 * 3) {
+            titleInt -= 3.1415 * 2 * 3;
         }
-        setPosition(-sin(titleInterval / 3) * 0.005f,  0.15f + sin(titleInterval) * 0.005f, -0.45f);
+        setPosition(sin(titleInt / 3) * 0.001f,  0.15f + sin(titleInt) * 0.001f, -0.5f);
     }
 }

@@ -10,10 +10,10 @@ import org.lwjglb.engine.graph.Texture;
 
 public class PlayerCharacter extends GameItem {
 
-    static String[] skins = {"./textures/player1.png", "./textures/player0.png", "./textures/player2.png", "./textures/player3.png"};
+    static String[] skins = {"./textures/player1.png", "./textures/player0.png"};
     static Mesh mesh;
     static Material material;
-    static Texture[] textures = new Texture[4];
+    static Texture[] textures = new Texture[2];
 
     public static void init() throws Exception {
         mesh = OBJLoader.loadMesh("/models/player.obj");
@@ -34,6 +34,22 @@ public class PlayerCharacter extends GameItem {
     public void rotate(float interval) {
         Vector3f vec = getRotation();
         float speed = 180;
+        vec.x += speed * interval;
+        setRotation(vec.x, vec.y, vec.z);
+    }
+
+    public void rotateLeft(float interval) {
+        Vector3f vec = getRotation();
+        float speed = 180;
+        vec.x += speed * interval;
+        vec.y -= speed * interval;
+        setRotation(vec.x, vec.y, vec.z);
+    }
+
+    public void rotateRight(float interval) {
+        Vector3f vec = getRotation();
+        float speed = 180;
+        vec.x += speed * interval;
         vec.y += speed * interval;
         setRotation(vec.x, vec.y, vec.z);
     }

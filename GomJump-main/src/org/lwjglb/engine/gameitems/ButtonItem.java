@@ -8,10 +8,9 @@ import org.lwjglb.engine.graph.Texture;
 public class ButtonItem extends GameItem {
 
     static final String models = "/models/button.obj";
-    static final String[] skin = {"./textures/ButtonStart.png", "./textures/ButtonPlayer.png", "./textures/ButtonCoin.png",
-            "./textures/ButtonHighScores.png", "./textures/ButtonExit.png"};
-    static Mesh[] meshes = new Mesh[5];
-    static Texture[] textures = new Texture[5];
+    static final String[] skin = {"./textures/ButtonStart.png", "./textures/ButtonSkin.png", "./textures/ButtonExit.png"};
+    static Mesh[] meshes = new Mesh[3];
+    static Texture[] textures = new Texture[3];
 
     public static void init() throws Exception {
         for (int i = 0; i < textures.length; i++) {

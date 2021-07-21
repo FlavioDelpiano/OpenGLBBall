@@ -27,7 +27,7 @@ public class GameScene implements Scene {
 
     private ArrayList<GameItem> platformItems;
 
-    private ArrayList<CoinItem> coinItems;
+    private ArrayList<BottleItem> bottleItems;
 
     private ArrayList<EnemyItem> enemyItems;
 
@@ -88,7 +88,7 @@ public class GameScene implements Scene {
         if (((immunityFrames / 2) % 2) != 1)
             gameItems.add(playerCharacter);
         gameItems.addAll(platformItems);
-        gameItems.addAll(coinItems);
+        gameItems.addAll(bottleItems);
         gameItems.addAll(Arrays.asList(lives).subList(0, livesCount));
         gameItems.addAll(Arrays.asList(power).subList(0, powerCount));
         gameItems.addAll(enemyItems);
@@ -160,8 +160,8 @@ public class GameScene implements Scene {
                 platformItems.forEach(gm -> updateItem(gm, toRemovePlatforms));
                 platformItems.removeAll(toRemovePlatforms);
                 ArrayList<GameItem> toRemoveCoins = new ArrayList<>();
-                coinItems.forEach(c -> updateItem(c, toRemoveCoins));
-                coinItems.removeAll(toRemoveCoins);
+                bottleItems.forEach(c -> updateItem(c, toRemoveCoins));
+                bottleItems.removeAll(toRemoveCoins);
                 ArrayList<GameItem> toRemoveEnemy = new ArrayList<>();
                 enemyItems.forEach(enemyItem -> updateItem(enemyItem, toRemoveEnemy));
                 enemyItems.removeAll(toRemoveEnemy);
@@ -176,11 +176,14 @@ public class GameScene implements Scene {
                     left = false;
                     Vector3f position = playerCharacter.getPosition();
                     position.x -= horizontalSpeed * interval;
+
                 }
                 if (right) {
                     right = false;
                     Vector3f position = playerCharacter.getPosition();
                     position.x += horizontalSpeed * interval;
+
+
                 }
             } else {
                 left = right = false;
@@ -195,9 +198,9 @@ public class GameScene implements Scene {
                 }
             }
 
-            CoinItem coin = null;
+            BottleItem coin = null;
             if (playerCharacter != null) {
-                for (CoinItem c : coinItems) {
+                for (BottleItem c : bottleItems) {
                     if (c.isColliding(playerCharacter.getCollider())) {
                         coin = c;
                         soundManager.playSoundSource("coin");
@@ -206,7 +209,7 @@ public class GameScene implements Scene {
                 }
             }
             if (coin != null) {
-                coinItems.remove(coin);
+                bottleItems.remove(coin);
                 increaseScore(20);
             }
 
@@ -244,7 +247,7 @@ public class GameScene implements Scene {
             enemyItems.forEach(enemyItem -> enemyItem.updateRotation(interval));
             if (score >= 500) enemyItems.forEach(enemyItem -> enemyItem.updatePosition(interval));
 
-            coinItems.forEach(c -> c.rotate(interval));
+            bottleItems.forEach(c -> c.rotate(interval));
             if (playerCharacter != null) {
                 playerCharacter.jumpAnimation(characterSpeed, maxCharacterSpeed);
                 gameHud.setStatusText(String.format("%07d", score));
@@ -329,7 +332,7 @@ public class GameScene implements Scene {
         }
         playerCharacter = new PlayerCharacter(data.getPlayerSkinIndex(), 0.06f);
         platformItems = new ArrayList<>();
-        coinItems = new ArrayList<>();
+        bottleItems = new ArrayList<>();
         enemyItems = new ArrayList<>();
         final int maxPlanes = 10;
         PlatformItem platform;

@@ -198,18 +198,18 @@ public class GameScene implements Scene {
                 }
             }
 
-            BottleItem coin = null;
+            BottleItem bottle = null;
             if (playerCharacter != null) {
-                for (BottleItem c : bottleItems) {
-                    if (c.isColliding(playerCharacter.getCollider())) {
-                        coin = c;
+                for (BottleItem b : bottleItems) {
+                    if (b.isColliding(playerCharacter.getCollider())) {
+                        bottle = b;
                         soundManager.playSoundSource("coin");
                         break;
                     }
                 }
             }
-            if (coin != null) {
-                bottleItems.remove(coin);
+            if (bottle != null) {
+                bottleItems.remove(bottle);
                 increaseScore(20);
             }
 

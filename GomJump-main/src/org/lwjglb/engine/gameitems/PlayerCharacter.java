@@ -32,7 +32,7 @@ public class PlayerCharacter extends GameItem {
 
     public void rotateX(float interval) {
         Vector3f vec = getRotation();
-        float speed = 180;
+        float speed = 400;
         vec.x += speed * interval;
         setRotation(vec.x, vec.y, vec.z);
     }

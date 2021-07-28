@@ -40,7 +40,7 @@ public class GameEngine implements Runnable {
             window.init();
             wind = true;
         }
-        Utils.initItems();
+        Utilities.initItems();
         timer.init();
         gameLogic.init(window);
     }

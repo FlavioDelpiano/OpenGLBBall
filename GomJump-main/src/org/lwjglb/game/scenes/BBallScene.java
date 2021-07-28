@@ -127,7 +127,7 @@ public class BBallScene implements Scene{
 
             }
 
-            characterSpeed += (interval * verticalSpeed);
+            characterSpeed += Math.log(1 + interval * verticalSpeed);
 
 
 
@@ -179,7 +179,7 @@ public class BBallScene implements Scene{
                 for (EnemyItem e : enemyItems) {
                     if (e.isColliding(character.getCollider())) {
                         enemy = e;
-                        soundManager.playSoundSource("hit2");
+                        soundManager.playSoundSource("hit");
                         lost = true;
                         gameHud.setStatusText("GAME OVER");
                         gameHud.gameLost();
@@ -298,20 +298,12 @@ public class BBallScene implements Scene{
         soundManager.setVolume("background", 0.75f);
         soundManager.playSoundSource("background");
 
-
-        SoundBuffer buffCoin = new SoundBuffer("/sound/coin.ogg");
-        soundManager.addSoundBuffer(buffCoin);
-        SoundSource sourceCoin = new SoundSource(false, false);
-        sourceCoin.setBuffer(buffCoin.getBufferId());
-        soundManager.addSoundSource("coin", sourceCoin);
-        soundManager.setVolume("coin", 1);
-
-        SoundBuffer buffJump = new SoundBuffer("/sound/jump.ogg");
-        soundManager.addSoundBuffer(buffJump);
-        SoundSource sourceJump = new SoundSource(false, false);
-        sourceJump.setBuffer(buffJump.getBufferId());
-        soundManager.addSoundSource("jump", sourceJump);
-        soundManager.setVolume("jump", 0.5f);
+        SoundBuffer buffBottle = new SoundBuffer("/sound/bottle.ogg");
+        soundManager.addSoundBuffer(buffBottle);
+        SoundSource sourceBottle = new SoundSource(false, false);
+        sourceBottle.setBuffer(buffBottle.getBufferId());
+        soundManager.addSoundSource("bottle", sourceBottle);
+        soundManager.setVolume("bottle", 10f);
 
         SoundBuffer buffHit = new SoundBuffer("/sound/hit.ogg");
         soundManager.addSoundBuffer(buffHit);

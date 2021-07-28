@@ -1,20 +1,9 @@
 package org.lwjglb.game;
 
-import org.lwjglb.engine.Database;
-
 public class GameData {
     private boolean endGame = false;
     private int playerSkinIndex = 0;
     private int coinSkinIndex = 0;
-    final private Database database;
-
-    public GameData() {
-        database = new Database();
-    }
-
-    public Database getDatabase() {
-        return database;
-    }
 
     public boolean isEndGame() {
         return endGame;

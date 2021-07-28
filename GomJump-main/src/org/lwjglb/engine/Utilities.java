@@ -18,7 +18,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Scanner;
 
-public class Utils {
+public class Utilities {
 
     public static void initItems() throws Exception {
         BottleItem.initCoin();
@@ -28,7 +28,7 @@ public class Utils {
 
     public static String loadResource(String fileName) throws Exception {
         String result;
-        try (InputStream in = Utils.class.getResourceAsStream("/resources" + fileName);
+        try (InputStream in = Utilities.class.getResourceAsStream("/resources" + fileName);
              Scanner scanner = new Scanner(in, java.nio.charset.StandardCharsets.UTF_8.name())) {
             result = scanner.useDelimiter("\\A").next();
         }
@@ -38,7 +38,7 @@ public class Utils {
     public static List<String> readAllLines(String fileName) throws Exception {
         List<String> list = new ArrayList<>();
         try (BufferedReader br = new BufferedReader(new InputStreamReader(
-                Utils.class.getResourceAsStream("/resources" + fileName)))) {
+                Utilities.class.getResourceAsStream("/resources" + fileName)))) {
             String line;
             while ((line = br.readLine()) != null) {
                 list.add(line);
@@ -57,7 +57,7 @@ public class Utils {
                 while (fc.read(buffer) != -1);
             }
         } else {
-            InputStream source = Utils.class.getResourceAsStream("/resources" + resource);
+            InputStream source = Utilities.class.getResourceAsStream("/resources" + resource);
             ReadableByteChannel rbc = Channels.newChannel(source);
             buffer = BufferUtils.createByteBuffer(bufferSize);
 

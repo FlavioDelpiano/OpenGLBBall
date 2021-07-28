@@ -304,7 +304,7 @@ public class GameScene implements Scene {
 
             if ((window.isKeyDown(GLFW_KEY_ENTER) || window.isKeyDown(GLFW_KEY_KP_ENTER)) && !gameHud.getName().trim().isEmpty()) {
                 String name = gameHud.getName();
-                data.getDatabase().insertScore(name, score);
+                //data.getDatabase().insertScore(name, score);
                 running = false;
             }
         }

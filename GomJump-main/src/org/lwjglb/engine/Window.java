@@ -117,8 +117,8 @@ public class Window {
             ByteBuffer icon16;
             ByteBuffer icon32;
             try {
-                icon16 = Utils.ioResourceToByteBuffer(path, 2048);
-                icon32 = Utils.ioResourceToByteBuffer(path, 4096);
+                icon16 = Utilities.ioResourceToByteBuffer(path, 2048);
+                icon32 = Utilities.ioResourceToByteBuffer(path, 4096);
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }

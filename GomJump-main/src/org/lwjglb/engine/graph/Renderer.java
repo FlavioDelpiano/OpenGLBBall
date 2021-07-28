@@ -40,8 +40,8 @@ public class Renderer {
     public void init() throws Exception {
         // Create shader
         shaderProgram = new ShaderProgram();
-        shaderProgram.createVertexShader(Utils.loadResource("/shaders/vertex.vs"));
-        shaderProgram.createFragmentShader(Utils.loadResource("/shaders/fragment.fs"));
+        shaderProgram.createVertexShader(Utilities.loadResource("/shaders/vertex.vs"));
+        shaderProgram.createFragmentShader(Utilities.loadResource("/shaders/fragment.fs"));
         shaderProgram.link();
 
         // Create uniforms for modelView and projection matrices and texture
@@ -57,8 +57,8 @@ public class Renderer {
 
 
         hudShaderProgram = new ShaderProgram();
-        hudShaderProgram.createVertexShader(Utils.loadResource("/shaders/hud_vertex.vs"));
-        hudShaderProgram.createFragmentShader(Utils.loadResource("/shaders/hud_fragment.fs"));
+        hudShaderProgram.createVertexShader(Utilities.loadResource("/shaders/hud_vertex.vs"));
+        hudShaderProgram.createFragmentShader(Utilities.loadResource("/shaders/hud_fragment.fs"));
         hudShaderProgram.link();
 
         // Create uniforms for Ortographic-model projection matrix and base colour
@@ -67,8 +67,8 @@ public class Renderer {
         hudShaderProgram.createUniform("hasTexture");
 
         skyBoxShaderProgram = new ShaderProgram();
-        skyBoxShaderProgram.createVertexShader(Utils.loadResource("/shaders/sb_vertex.vs"));
-        skyBoxShaderProgram.createFragmentShader(Utils.loadResource("/shaders/sb_fragment.fs"));
+        skyBoxShaderProgram.createVertexShader(Utilities.loadResource("/shaders/sb_vertex.vs"));
+        skyBoxShaderProgram.createFragmentShader(Utilities.loadResource("/shaders/sb_fragment.fs"));
         skyBoxShaderProgram.link();
 
         // Create uniforms for projection matrix

@@ -4,12 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import org.joml.Vector2f;
 import org.joml.Vector3f;
-import org.lwjglb.engine.Utils;
+import org.lwjglb.engine.Utilities;
 
 public class OBJLoader {
 
     public static Mesh loadMesh(String fileName) throws Exception {
-        List<String> lines = Utils.readAllLines(fileName);
+        List<String> lines = Utilities.readAllLines(fileName);
         
         List<Vector3f> vertices = new ArrayList<>();
         List<Vector2f> textures = new ArrayList<>();

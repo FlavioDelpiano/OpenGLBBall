@@ -40,10 +40,6 @@ public class SoundSource {
         return alGetSourcei(sourceId, AL_SOURCE_STATE) == AL_PLAYING;
     }
 
-    public void pause() {
-        alSourcePause(sourceId);
-    }
-
     public void stop() {
         alSourceStop(sourceId);
     }

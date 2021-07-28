@@ -50,10 +50,6 @@ public class SoundManager {
         this.soundSourceMap.put(name, soundSource);
     }
 
-    public SoundSource getSoundSource(String name) {
-        return this.soundSourceMap.get(name);
-    }
-
     public void playSoundSource(String name) {
         SoundSource soundSource = this.soundSourceMap.get(name);
         if (soundSource != null && !soundSource.isPlaying()) {
@@ -61,16 +57,8 @@ public class SoundManager {
         }
     }
 
-    public void removeSoundSource(String name) {
-        this.soundSourceMap.remove(name);
-    }
-
     public void addSoundBuffer(SoundBuffer soundBuffer) {
         this.soundBufferList.add(soundBuffer);
-    }
-
-    public SoundListener getListener() {
-        return this.listener;
     }
 
     public void setListener(SoundListener listener) {

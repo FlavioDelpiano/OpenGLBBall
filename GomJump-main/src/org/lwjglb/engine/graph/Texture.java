@@ -3,7 +3,6 @@ package org.lwjglb.engine.graph;
 import java.nio.ByteBuffer;
 import java.nio.IntBuffer;
 import org.lwjgl.system.MemoryStack;
-import org.lwjglb.engine.Utils;
 
 import static org.lwjgl.opengl.GL11.*;
 import static org.lwjgl.opengl.GL12.*;

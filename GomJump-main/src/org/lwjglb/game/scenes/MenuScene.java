@@ -179,13 +179,13 @@ public class MenuScene implements Scene {
         soundManager.init();
         soundManager.setAttenuationModel(AL11.AL_LINEAR_DISTANCE);
 
-        SoundBuffer buffBack = new SoundBuffer("/sound/menu.ogg");
-        soundManager.addSoundBuffer(buffBack);
-        SoundSource sourceBack = new SoundSource(true, false);
-        sourceBack.setBuffer(buffBack.getBufferId());
-        soundManager.addSoundSource("background", sourceBack);
-        sourceBack.setGain(0.2f);
-        sourceBack.play();
+        SoundBuffer buffMenuSoundtrack = new SoundBuffer("/sound/menu_st.ogg");
+        soundManager.addSoundBuffer(buffMenuSoundtrack);
+        SoundSource sourceMenuSoundtrack = new SoundSource(true, false);
+        sourceMenuSoundtrack.setBuffer(buffMenuSoundtrack.getBufferId());
+        soundManager.addSoundSource("menuSoundtrack", sourceMenuSoundtrack);
+        sourceMenuSoundtrack.setGain(0.2f);
+        sourceMenuSoundtrack.play();
 
         SoundBuffer buffButton = new SoundBuffer("/sound/button.ogg");
         soundManager.addSoundBuffer(buffButton);

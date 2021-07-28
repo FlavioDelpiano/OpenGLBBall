@@ -163,7 +163,7 @@ public class BBallScene implements Scene{
                 for (BottleItem b : bottleItems) {
                     if (b.isColliding(character.getCollider())) {
                         bottle = b;
-                        soundManager.playSoundSource("coin");
+                        soundManager.playSoundSource("bottle");
                         break;
                     }
                 }
@@ -179,7 +179,7 @@ public class BBallScene implements Scene{
                 for (EnemyItem e : enemyItems) {
                     if (e.isColliding(character.getCollider())) {
                         enemy = e;
-                        soundManager.playSoundSource("hit");
+                        soundManager.playSoundSource("crash");
                         lost = true;
                         gameHud.setStatusText("GAME OVER");
                         gameHud.gameLost();
@@ -288,29 +288,29 @@ public class BBallScene implements Scene{
         soundManager.init();
         soundManager.setAttenuationModel(AL11.AL_LINEAR_DISTANCE);
 
-        SoundBuffer buffBack = new SoundBuffer("/sound/bg.ogg");
-        soundManager.addSoundBuffer(buffBack);
-        SoundSource sourceBack = new SoundSource(true, false);
-        sourceBack.setBuffer(buffBack.getBufferId());
-        soundManager.addSoundSource("background", sourceBack);
+        SoundBuffer buffSoundtrack = new SoundBuffer("/sound/game_st.ogg");
+        soundManager.addSoundBuffer(buffSoundtrack);
+        SoundSource sourceSoundtrack = new SoundSource(true, false);
+        sourceSoundtrack.setBuffer(buffSoundtrack.getBufferId());
+        soundManager.addSoundSource("soundtrack", sourceSoundtrack);
 
         soundManager.setListener(new SoundListener(new Vector3f()));
-        soundManager.setVolume("background", 0.75f);
-        soundManager.playSoundSource("background");
+        soundManager.setVolume("soundtrack", 0.75f);
+        soundManager.playSoundSource("soundtrack");
 
         SoundBuffer buffBottle = new SoundBuffer("/sound/bottle.ogg");
         soundManager.addSoundBuffer(buffBottle);
         SoundSource sourceBottle = new SoundSource(false, false);
         sourceBottle.setBuffer(buffBottle.getBufferId());
         soundManager.addSoundSource("bottle", sourceBottle);
-        soundManager.setVolume("bottle", 10f);
+        soundManager.setVolume("bottle", 1.5f);
 
-        SoundBuffer buffHit = new SoundBuffer("/sound/hit.ogg");
-        soundManager.addSoundBuffer(buffHit);
+        SoundBuffer buffCrash = new SoundBuffer("/sound/crash.ogg");
+        soundManager.addSoundBuffer(buffCrash);
         SoundSource sourceHit = new SoundSource(false, false);
-        sourceHit.setBuffer(buffHit.getBufferId());
-        soundManager.addSoundSource("hit", sourceHit);
-        soundManager.setVolume("hit", 2f);
+        sourceHit.setBuffer(buffCrash.getBufferId());
+        soundManager.addSoundSource("crash", sourceHit);
+        soundManager.setVolume("crash", 1f);
     }
 
     @Override

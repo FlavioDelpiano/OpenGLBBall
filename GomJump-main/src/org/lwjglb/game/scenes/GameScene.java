@@ -111,7 +111,7 @@ public class GameScene implements Scene {
                 po.updateRot(interval);
             }
             for (int i = 0; i < livesCount; i++) {
-                lives[i].rotate(interval / 2);
+                lives[i].rotateX(interval / 2);
             }
             if (!start) return; // aspetto a far partire
             final float horizontalSpeed = 2.0f;

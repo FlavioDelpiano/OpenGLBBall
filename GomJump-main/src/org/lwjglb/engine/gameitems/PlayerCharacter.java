@@ -28,16 +28,23 @@ public class PlayerCharacter extends GameItem {
 
     public void changeSkin(int index){
         material.setTexture(textures[index]);
-
     }
 
-    public void rotate(float interval) {
+    public void rotateX(float interval) {
         Vector3f vec = getRotation();
         float speed = 180;
         vec.x += speed * interval;
         setRotation(vec.x, vec.y, vec.z);
     }
 
+    public void rotateY(float interval) {
+        Vector3f vec = getRotation();
+        float speed = 180;
+        vec.y += speed * interval;
+        setRotation(vec.x, vec.y, vec.z);
+    }
+
+    /*
     public void rotateLeft(float interval) {
         Vector3f vec = getRotation();
         float speed = 180;
@@ -54,6 +61,8 @@ public class PlayerCharacter extends GameItem {
         setRotation(vec.x, vec.y, vec.z);
     }
 
+     */
+
     public void dying(float interval) {
         Vector3f vec = getRotation();
         float speed = 360;
@@ -65,7 +74,7 @@ public class PlayerCharacter extends GameItem {
         super(mesh);
         material.setTexture(textures[index]);
         mesh.setMaterial(material);
-        setRotation(0, 180, 0);
+        setRotation(0, 90, 0);
         setPosition(0, 0, -2);
         setScale(scale);
     }

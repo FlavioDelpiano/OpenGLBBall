@@ -24,9 +24,10 @@ public class ButtonItem extends GameItem {
         Material mat = new Material();
         mat.setTexture(textures[index]);
         getMesh().setMaterial(mat);
-        float[] position = {0.05f, 0, -0.05f, -0.1f, -0.15f};
+        float[] position = {0f, -0.07f, -0.14f};
+        float[] rot = {5, -3, 3};
         setPosition(0, position[index], -0.45f);
-        setRotation(0, 90, 0);
+        setRotation(20, 90 - rot[index], 0);
         setScale(0.1f);
     }
 

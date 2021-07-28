@@ -44,8 +44,7 @@ public class EnemyItem extends GameItem {
         ydir = (random.nextFloat()) > 0.5f ? 1 : -1;
 
         setPosition(x, 1.4f, -2);
-        setScale(0.055f + 0.04f * random.nextFloat());
-
+        setScale(0.055f);
     }
 
     public void updateRotation(float interval) {
@@ -53,7 +52,6 @@ public class EnemyItem extends GameItem {
         tmp.x += rotx * interval;
         tmp.y += roty * interval;
         tmp.z += rotz * interval;
-
     }
 
     public void updatePosition(float interval) {

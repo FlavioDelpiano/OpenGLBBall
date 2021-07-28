@@ -95,7 +95,7 @@ public class BBallScene implements Scene{
                 previous_distance += distance;
                 distance = distance % 0.01f;
 
-                character.rotate(interval);
+                character.rotateX(interval);
 
                 if (previous_distance > 0.025f) {
                     try {
@@ -127,7 +127,7 @@ public class BBallScene implements Scene{
 
             }
 
-            characterSpeed += interval * verticalSpeed;
+            characterSpeed += (interval * verticalSpeed);
 
 
 
@@ -179,7 +179,7 @@ public class BBallScene implements Scene{
                 for (EnemyItem e : enemyItems) {
                     if (e.isColliding(character.getCollider())) {
                         enemy = e;
-                        soundManager.playSoundSource("hit");
+                        soundManager.playSoundSource("hit2");
                         lost = true;
                         gameHud.setStatusText("GAME OVER");
                         gameHud.gameLost();
@@ -234,7 +234,6 @@ public class BBallScene implements Scene{
 
     private void increaseScore(double value) {
         score += value;
-
     }
 
 

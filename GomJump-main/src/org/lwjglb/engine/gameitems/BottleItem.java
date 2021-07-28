@@ -31,8 +31,8 @@ public class BottleItem extends GameItem {
         material.setTexture(texture);
         mesh.setMaterial(material);
         setPosition(x, 1.4f, -2);
-        setScale(0.02f);
-
+        setScale(0.04f);
+        setRotation(90, 0, 200);
     }
 
     public BottleItem(int index) {

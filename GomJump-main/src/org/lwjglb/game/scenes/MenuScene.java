@@ -84,7 +84,8 @@ public class MenuScene implements Scene {
                 }
             }
             case Character -> {
-                playerCharacter.rotate(interval / 6);
+                playerCharacter.setPosition(0, 0, -0.1f);
+                playerCharacter.rotateY(interval / 6);
                 updateSkin();
             }
         }

@@ -127,7 +127,7 @@ public class BBallScene implements Scene{
 
             }
 
-            characterSpeed += Math.log(1 + interval * verticalSpeed);
+            characterSpeed += Math.log(1 + interval * verticalSpeed/4);
 
 
 

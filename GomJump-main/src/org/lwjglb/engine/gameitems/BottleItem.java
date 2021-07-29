@@ -23,22 +23,15 @@ public class BottleItem extends GameItem {
         material = new Material(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f), 1f);
         mesh.setMaterial(material);
         texture = new Texture("./textures/bottle.png");
-
     }
 
-    public BottleItem(float x, int index){
+    public BottleItem(float x){
         super(mesh);
         material.setTexture(texture);
         mesh.setMaterial(material);
         setPosition(x, 1.4f, -2);
         setScale(0.04f);
         setRotation(90, 0, 200);
-    }
-
-    public BottleItem(int index) {
-        super(mesh);
-        material.setTexture(texture);
-        mesh.setMaterial(material);
     }
 
     public void rotate(float interval) {

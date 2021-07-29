@@ -100,35 +100,34 @@ public class BBallScene implements Scene{
                 if (previous_distance > 0.025f) {
                     try {
                         var val = itemsRandom.nextDouble();
-                        if (val >= 0.92 ) { // aggiungere all'if condizione di distanza minima
-                            EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
-                            if(val <= 0.95)
-                            {
-                                bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getBottleSkinIndex()));// cambiare meto
-                            }
 
-                            boolean set = true;
-                            for (var b : bottleItems) {
-                                if (b.isColliding(enemy.getCollider())) {
-                                    set = false;
-                                    break;
+                       // if(score > ) {
+                            if (val >= 0.92) { // aggiungere all'if condizione di distanza minima
+                                EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
+                                if (val <= 0.95) {
+                                    bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f));// cambiare meto
                                 }
+
+                                boolean set = true;
+                                for (var b : bottleItems) {
+                                    if (b.isColliding(enemy.getCollider())) {
+                                        set = false;
+                                        break;
+                                    }
+                                }
+                                if (set)
+                                    enemyItems.add(enemy);
                             }
-                            if (set)
-                                enemyItems.add(enemy);
-                        }
+                     //   }
                         previous_distance = 0;
 
                     } catch (Exception ex) {
                         ex.printStackTrace();
                     }
                 }
-
-
             }
 
             characterSpeed += Math.log(1 + interval * verticalSpeed/4);
-
 
 
             if (character != null && hit == false) {
@@ -138,7 +137,6 @@ public class BBallScene implements Scene{
                 ArrayList<GameItem> toRemoveEnemy = new ArrayList<>();
                 enemyItems.forEach(enemyItem -> updateItem(enemyItem, toRemoveEnemy));
                 enemyItems.removeAll(toRemoveEnemy);
-
             }
 
             if (character != null && left != right) {
@@ -146,13 +144,11 @@ public class BBallScene implements Scene{
                     left = false;
                     Vector3f position = character.getPosition();
                     position.x -= horizontalSpeed * interval;
-
                 }
                 if (right) {
                     right = false;
                     Vector3f position = character.getPosition();
                     position.x += horizontalSpeed * interval;
-
                 }
             } else {
                 left = right = false;
@@ -205,6 +201,7 @@ public class BBallScene implements Scene{
             character.setPosition(vec);
             character.dying(interval);
         }
+
         if (character == null || hit  == true) {
             lost = true;
             gameHud.setStatusText("GAME OVER");
@@ -235,8 +232,6 @@ public class BBallScene implements Scene{
     private void increaseScore(double value) {
         score += value;
     }
-
-
 
     @Override
     public void input(Window window) {
@@ -295,7 +290,7 @@ public class BBallScene implements Scene{
         soundManager.addSoundSource("soundtrack", sourceSoundtrack);
 
         soundManager.setListener(new SoundListener(new Vector3f()));
-        soundManager.setVolume("soundtrack", 0.75f);
+        soundManager.setVolume("soundtrack", 0.25f);
         soundManager.playSoundSource("soundtrack");
 
         SoundBuffer buffBottle = new SoundBuffer("/sound/bottle.ogg");

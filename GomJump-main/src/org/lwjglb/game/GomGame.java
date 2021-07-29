@@ -5,7 +5,6 @@ import org.lwjglb.engine.Scene;
 import org.lwjglb.engine.Window;
 import org.lwjglb.engine.graph.Renderer;
 import org.lwjglb.game.scenes.BBallScene;
-import org.lwjglb.game.scenes.GameScene;
 import org.lwjglb.game.scenes.MenuScene;
 
 @SuppressWarnings("DuplicatedCode")

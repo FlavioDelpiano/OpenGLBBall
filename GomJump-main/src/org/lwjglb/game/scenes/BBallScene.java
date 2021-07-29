@@ -104,7 +104,7 @@ public class BBallScene implements Scene{
                             EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
                             if(val <= 0.95)
                             {
-                                bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getCoinSkinIndex()));// cambiare meto
+                                bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f, data.getBottleSkinIndex()));// cambiare meto
                             }
 
                             boolean set = true;
@@ -194,7 +194,7 @@ public class BBallScene implements Scene{
 
 
             if (character != null) {
-                gameHud.setStatusText(String.format("%07d", score));
+                gameHud.setStatusText(String.format("%06d", score));
             }
 
 

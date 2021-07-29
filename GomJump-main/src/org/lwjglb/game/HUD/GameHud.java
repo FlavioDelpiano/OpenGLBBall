@@ -31,18 +31,11 @@ public class GameHud implements IHud {
         scoreTextItem = new TextItem(statusText, fontTexture);
         scoreTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
 
-
-
-
-
         gameItems.add(scoreTextItem);
         scoreTextItem.setText(statusText);
 
-
-
         nameTextItem = new TextItem("", nameFontTexture);
         nameValueTextItem = new TextItem("", nameFontTexture);
-
     }
 
     public void setStatusText(String statusText) {

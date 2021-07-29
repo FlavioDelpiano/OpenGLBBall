@@ -3,7 +3,7 @@ package org.lwjglb.game;
 public class GameData {
     private boolean endGame = false;
     private int playerSkinIndex = 0;
-    private int coinSkinIndex = 0;
+    private int bottleSkinIndex = 0;
 
     public boolean isEndGame() {
         return endGame;
@@ -21,11 +21,11 @@ public class GameData {
         this.playerSkinIndex = playerSkinIndex;
     }
 
-    public int getCoinSkinIndex() {
-        return coinSkinIndex;
+    public int getBottleSkinIndex() {
+        return bottleSkinIndex;
     }
 
-    public void setCoinSkinIndex(int coinSkinIndex) {
-        this.coinSkinIndex = coinSkinIndex;
+    public void setBottleSkinIndex(int bottleSkinIndex) {
+        this.bottleSkinIndex = bottleSkinIndex;
     }
 }

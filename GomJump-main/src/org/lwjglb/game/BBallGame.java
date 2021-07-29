@@ -8,7 +8,7 @@ import org.lwjglb.game.scenes.BBallScene;
 import org.lwjglb.game.scenes.MenuScene;
 
 @SuppressWarnings("DuplicatedCode")
-public class GomGame implements IGameLogic {
+public class BBallGame implements IGameLogic {
 
     private final Renderer renderer;
 
@@ -18,7 +18,7 @@ public class GomGame implements IGameLogic {
     private boolean menu = true;
 
 
-    public GomGame() {
+    public BBallGame() {
         data = new GameData();
         renderer = new Renderer();
         running = new MenuScene();

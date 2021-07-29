@@ -18,7 +18,7 @@ public class BottleItem extends GameItem {
 
     static Texture texture;
 
-    public static void initCoin() throws Exception {
+    public static void initBottle() throws Exception {
         mesh = OBJLoader.loadMesh("/models/bottle.obj");
         material = new Material(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f), 1f);
         mesh.setMaterial(material);

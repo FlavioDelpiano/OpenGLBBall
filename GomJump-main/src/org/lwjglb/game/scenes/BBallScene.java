@@ -24,11 +24,11 @@ import static org.lwjgl.glfw.GLFW.*;
 
 //commit test consistenza
 public class BBallScene implements Scene{
-    private ArrayList<EnemyItem> enemyItems;
+    private ArrayList<MascotteItem> mascotteItems;
 
     private ArrayList<BottleItem> bottleItems;
 
-    private PlayerCharacter character;
+    private PlayerBall character;
 
     private Vector3f ambientLight;
 
@@ -38,7 +38,7 @@ public class BBallScene implements Scene{
 
     long score = 0;
 
-    private SkyBox skyBox;
+    private Background background;
 
     private boolean hit = false, left = true, right = false, running = true;
 
@@ -62,7 +62,7 @@ public class BBallScene implements Scene{
 
     private float interval;
 
-    private final PlayerCharacter[] lives = new PlayerCharacter[3]; // da creare un life item
+    private final PlayerBall[] lives = new PlayerBall[3]; // da creare un life item
 
     public BBallScene(GameData data) {
         soundManager = new SoundManager();
@@ -76,7 +76,7 @@ public class BBallScene implements Scene{
         gameItems.add(character);
         gameItems.addAll(bottleItems);
         gameItems.addAll(Arrays.asList(lives).subList(0, livesCount));
-        gameItems.addAll(enemyItems);
+        gameItems.addAll(mascotteItems);
         return gameItems;
     }
 
@@ -103,7 +103,7 @@ public class BBallScene implements Scene{
 
                        // if(score > ) {
                             if (val >= 0.92) { // aggiungere all'if condizione di distanza minima
-                                EnemyItem enemy = new EnemyItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
+                                MascotteItem enemy = new MascotteItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
                                 if (val <= 0.95) {
                                     bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f));// cambiare meto
                                 }
@@ -116,7 +116,7 @@ public class BBallScene implements Scene{
                                     }
                                 }
                                 if (set)
-                                    enemyItems.add(enemy);
+                                    mascotteItems.add(enemy);
                             }
                      //   }
                         previous_distance = 0;
@@ -135,8 +135,8 @@ public class BBallScene implements Scene{
                 bottleItems.forEach(c -> updateItem(c, toRemoveBottles));
                 bottleItems.removeAll(toRemoveBottles);
                 ArrayList<GameItem> toRemoveEnemy = new ArrayList<>();
-                enemyItems.forEach(enemyItem -> updateItem(enemyItem, toRemoveEnemy));
-                enemyItems.removeAll(toRemoveEnemy);
+                mascotteItems.forEach(mascotteItem -> updateItem(mascotteItem, toRemoveEnemy));
+                mascotteItems.removeAll(toRemoveEnemy);
             }
 
             if (character != null && left != right) {
@@ -169,10 +169,10 @@ public class BBallScene implements Scene{
                 increaseScore(30);
             }
 
-            EnemyItem enemy = null;
+            MascotteItem enemy = null;
 
             if (character != null) {
-                for (EnemyItem e : enemyItems) {
+                for (MascotteItem e : mascotteItems) {
                     if (e.isColliding(character.getCollider())) {
                         enemy = e;
                         soundManager.playSoundSource("crash");
@@ -186,7 +186,7 @@ public class BBallScene implements Scene{
             }
 
             // decidere se lasciarla ad un certo livello o per sempre
-            if (score >= 0) enemyItems.forEach(enemyItem -> enemyItem.updatePosition(interval));
+            if (score >= 0) mascotteItems.forEach(mascotteItem -> mascotteItem.updatePosition(interval));
 
 
             if (character != null) {
@@ -254,18 +254,18 @@ public class BBallScene implements Scene{
 
     @Override
     public void init(Window window, GameData data) throws Exception {
-        EnemyItem.init();
+        MascotteItem.init();
         gameHud = new GameHud("Press enter to start");
         gameHud.updateSize(window);
 
-        character = new PlayerCharacter(data.getPlayerSkinIndex(), 0.06f);
+        character = new PlayerBall(data.getPlayerSkinIndex(), 0.06f);
         Vector3f position = character.getPosition();
         position.y -= 0.6f;
         character.setPosition(position);
         bottleItems = new ArrayList<>();
-        enemyItems = new ArrayList<>();
+        mascotteItems = new ArrayList<>();
 
-        skyBox = new SkyBox();
+        background = new Background();
         ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
         Vector3f lightColour = new Vector3f(1, 1, 1);
         Vector3f lightPosition = new Vector3f(0, 0, 1);
@@ -315,8 +315,8 @@ public class BBallScene implements Scene{
 
     @Override
     public void cleanup() {
-        EnemyItem.clear();
-        enemyItems.forEach(GameItem::cleanup);
+        MascotteItem.clear();
+        mascotteItems.forEach(GameItem::cleanup);
         soundManager.cleanup();
         gameHud.cleanup();
     }
@@ -332,8 +332,8 @@ public class BBallScene implements Scene{
     }
 
     @Override
-    public SkyBox getSkybox() {
-        return skyBox;
+    public Background getBackground() {
+        return background;
     }
 
     @Override

@@ -32,7 +32,7 @@ public class MenuScene implements Scene {
 
     private final ButtonItem[] buttons = new ButtonItem[3];
 
-    private SkyBox skyBox;
+    private Background background;
 
     private final Camera camera;
 
@@ -46,7 +46,7 @@ public class MenuScene implements Scene {
 
     private TitleItem title;
 
-    PlayerCharacter playerCharacter;
+    PlayerBall playerBall;
 
     BottleItem bottleItem;
 
@@ -61,7 +61,7 @@ public class MenuScene implements Scene {
     public List<GameItem> getGameItems() {
         ArrayList<GameItem> list = new ArrayList<>();
         switch (state) {
-            case Character -> list.add(playerCharacter);
+            case Character -> list.add(playerBall);
             case Main -> {
                 list.addAll(Arrays.asList(buttons));
                 list.add(title);
@@ -84,8 +84,8 @@ public class MenuScene implements Scene {
                 }
             }
             case Character -> {
-                playerCharacter.setPosition(0, 0, -0.1f);
-                playerCharacter.rotateY(interval / 6);
+                playerBall.setPosition(0, 0, -0.1f);
+                playerBall.rotateY(interval / 6);
                 updateSkin();
             }
         }
@@ -148,7 +148,7 @@ public class MenuScene implements Scene {
     }
 
     public void updateSkin() {
-        playerCharacter.changeSkin(selectedSkin);
+        playerBall.changeSkin(selectedSkin);
     }
 
 
@@ -156,7 +156,7 @@ public class MenuScene implements Scene {
     public void init(Window window, GameData gameData) throws Exception {
         ButtonItem.init();
         data = gameData;
-        skyBox = new SkyBox();
+        background = new Background();
         ambientLight = new Vector3f(0.4f, 0.4f, 0.4f);
         Vector3f lightColour = new Vector3f(1, 1, 1);
         Vector3f lightPosition = new Vector3f(0, 0, 3);
@@ -165,7 +165,7 @@ public class MenuScene implements Scene {
         PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
         pointLight.setAttenuation(att);
 
-        playerCharacter = createSkin(selectedSkin);
+        playerBall = createSkin(selectedSkin);
 
         for (int i = 0; i < buttons.length; i++) {
             buttons[i] = new ButtonItem(i);
@@ -204,8 +204,8 @@ public class MenuScene implements Scene {
         return skin;
     }
 
-    static private PlayerCharacter createSkin(int position) {
-        PlayerCharacter skin = new PlayerCharacter(position, 0.6f);
+    static private PlayerBall createSkin(int position) {
+        PlayerBall skin = new PlayerBall(position, 0.6f);
         skin.setPosition(0 + position * 0.5f, -0.015f, -0.08f);
         skin.setScale(0.01f);
         return skin;
@@ -235,8 +235,8 @@ public class MenuScene implements Scene {
     }
 
     @Override
-    public SkyBox getSkybox() {
-        return skyBox;
+    public Background getBackground() {
+        return background;
     }
 
     @Override

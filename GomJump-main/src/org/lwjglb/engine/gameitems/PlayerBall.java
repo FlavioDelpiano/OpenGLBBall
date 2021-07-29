@@ -8,7 +8,7 @@ import org.lwjglb.engine.graph.OBJLoader;
 import org.lwjglb.engine.graph.Texture;
 
 
-public class PlayerCharacter extends GameItem {
+public class PlayerBall extends GameItem {
 
     static String[] skins = {"./textures/player1.png", "./textures/player0.png"};
     static Mesh mesh;
@@ -70,7 +70,7 @@ public class PlayerCharacter extends GameItem {
         setRotation(vec.x, vec.y, vec.z);
     }
 
-    public PlayerCharacter(int index, float scale ) {
+    public PlayerBall(int index, float scale ) {
         super(mesh);
         material.setTexture(textures[index]);
         mesh.setMaterial(material);

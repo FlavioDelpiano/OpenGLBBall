@@ -10,9 +10,9 @@ import java.util.List;
 
 public class TextItem extends GameItem {
 
-    private static final float ZPOS = 0.0f;
+    private static final float POSZ = 0.0f;
 
-    private static final int VERTICES_PER_QUAD = 4;
+    private static final int VERTICES = 4;
 
     private final FontTexture fontTexture;
 
@@ -42,38 +42,38 @@ public class TextItem extends GameItem {
             // Left Top vertex
             positions.add(startx); // x
             positions.add(0.0f); //y
-            positions.add(ZPOS); //z
+            positions.add(POSZ); //z
             textCoords.add((float) charInfo.getStartX() / (float) fontTexture.getWidth());
             textCoords.add(0.0f);
-            indices.add(i * VERTICES_PER_QUAD);
+            indices.add(i * VERTICES);
 
             // Left Bottom vertex
             positions.add(startx); // x
             positions.add((float) fontTexture.getHeight()); //y
-            positions.add(ZPOS); //z
+            positions.add(POSZ); //z
             textCoords.add((float) charInfo.getStartX() / (float) fontTexture.getWidth());
             textCoords.add(1.0f);
-            indices.add(i * VERTICES_PER_QUAD + 1);
+            indices.add(i * VERTICES + 1);
 
             // Right Bottom vertex
             positions.add(startx + charInfo.getWidth()); // x
             positions.add((float) fontTexture.getHeight()); //y
-            positions.add(ZPOS); //z
+            positions.add(POSZ); //z
             textCoords.add((float) (charInfo.getStartX() + charInfo.getWidth()) / (float) fontTexture.getWidth());
             textCoords.add(1.0f);
-            indices.add(i * VERTICES_PER_QUAD + 2);
+            indices.add(i * VERTICES + 2);
 
             // Right Top vertex
             positions.add(startx + charInfo.getWidth()); // x
             positions.add(0.0f); //y
-            positions.add(ZPOS); //z
+            positions.add(POSZ); //z
             textCoords.add((float) (charInfo.getStartX() + charInfo.getWidth()) / (float) fontTexture.getWidth());
             textCoords.add(0.0f);
-            indices.add(i * VERTICES_PER_QUAD + 3);
+            indices.add(i * VERTICES + 3);
 
             // Add indices por left top and bottom right vertices
-            indices.add(i * VERTICES_PER_QUAD);
-            indices.add(i * VERTICES_PER_QUAD + 2);
+            indices.add(i * VERTICES);
+            indices.add(i * VERTICES + 2);
 
             startx += charInfo.getWidth();
         }

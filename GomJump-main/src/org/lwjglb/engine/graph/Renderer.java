@@ -5,7 +5,7 @@ import org.joml.Vector3f;
 import org.joml.Vector4f;
 import org.lwjglb.engine.*;
 import org.lwjglb.engine.gameitems.GameItem;
-import org.lwjglb.engine.gameitems.SkyBox;
+import org.lwjglb.engine.gameitems.Background;
 
 import java.util.List;
 
@@ -93,12 +93,12 @@ public class Renderer {
         }
 
         Camera camera = scene.getCamera();
-        SkyBox skyBox = scene.getSkybox();
+        Background background = scene.getBackground();
         Vector3f ambientLight = scene.getAmbientLight();
         PointLight pointLight = scene.getPointLight();
         List<GameItem> gameItems = scene.getGameItems();
         IHud gameHud = scene.getHud();
-        renderSkyBox(window, camera, skyBox, ambientLight);
+        renderSkyBox(window, camera, background, ambientLight);
 
         renderGameItems(window, camera, gameItems, ambientLight, pointLight);
         renderHud(window, gameHud);
@@ -150,8 +150,8 @@ public class Renderer {
         shaderProgram.unbind();
     }
 
-    private void renderSkyBox(Window window, Camera camera, SkyBox skyBox, Vector3f ambientLight) {
-        if(skyBox == null) return;
+    private void renderSkyBox(Window window, Camera camera, Background background, Vector3f ambientLight) {
+        if(background == null) return;
         skyBoxShaderProgram.bind();
 
         skyBoxShaderProgram.setUniform("texture_sampler", 0);
@@ -162,11 +162,11 @@ public class Renderer {
         viewMatrix.m30(0);
         viewMatrix.m31(0);
         viewMatrix.m32(0);
-        Matrix4f modelViewMatrix = transformation.getModelViewMatrix(skyBox, viewMatrix);
+        Matrix4f modelViewMatrix = transformation.getModelViewMatrix(background, viewMatrix);
         skyBoxShaderProgram.setUniform("modelViewMatrix", modelViewMatrix);
         skyBoxShaderProgram.setUniform("ambientLight", ambientLight);
 
-        skyBox.getMesh().render();
+        background.getMesh().render();
 
         skyBoxShaderProgram.unbind();
     }

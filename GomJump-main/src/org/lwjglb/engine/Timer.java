@@ -2,10 +2,10 @@ package org.lwjglb.engine;
 
 public class Timer {
 
-    private double lastLoopTime;
+    private double lastTime;
 
     public void init() {
-        lastLoopTime = getTime();
+        lastTime = getTime();
     }
 
     public double getTime() {
@@ -14,8 +14,8 @@ public class Timer {
 
     public float getElapsedTime() {
         double time = getTime();
-        float elapsedTime = (float) (time - lastLoopTime);
-        lastLoopTime = time;
+        float elapsedTime = (float) (time - lastTime);
+        lastTime = time;
         return elapsedTime;
     }
 

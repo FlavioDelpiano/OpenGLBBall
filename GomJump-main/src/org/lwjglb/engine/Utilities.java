@@ -21,9 +21,9 @@ import java.util.Scanner;
 public class Utilities {
 
     public static void initItems() throws Exception {
-        BottleItem.initCoin();
-        PlayerCharacter.init();
-        SkyBox.init();
+        BottleItem.initBottle();
+        PlayerBall.init();
+        Background.init();
     }
 
     public static String loadResource(String fileName) throws Exception {

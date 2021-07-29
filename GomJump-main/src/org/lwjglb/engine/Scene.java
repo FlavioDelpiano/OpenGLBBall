@@ -2,7 +2,7 @@ package org.lwjglb.engine;
 
 import org.joml.Vector3f;
 import org.lwjglb.engine.gameitems.GameItem;
-import org.lwjglb.engine.gameitems.SkyBox;
+import org.lwjglb.engine.gameitems.Background;
 import org.lwjglb.engine.graph.Camera;
 import org.lwjglb.engine.graph.PointLight;
 import org.lwjglb.game.GameData;
@@ -27,7 +27,7 @@ public interface Scene {
 
     PointLight getPointLight();
 
-    SkyBox getSkybox();
+    Background getBackground();
 
     IHud getHud();
 

@@ -5,18 +5,18 @@ import org.lwjglb.engine.graph.Mesh;
 import org.lwjglb.engine.graph.OBJLoader;
 import org.lwjglb.engine.graph.Texture;
 
-public class SkyBox extends GameItem {
+public class Background extends GameItem {
 
-    private static Mesh skyBoxMesh;
+    private static Mesh bgMesh;
 
     public static void init() throws Exception {
-        skyBoxMesh = OBJLoader.loadMesh("/models/bg.obj");
+        bgMesh = OBJLoader.loadMesh("/models/bg.obj");
         Texture skyBoxTexture = new Texture("./textures/skybox.png");
-        skyBoxMesh.setMaterial(new Material(skyBoxTexture, 0.5f));
+        bgMesh.setMaterial(new Material(skyBoxTexture, 0.5f));
     }
 
-    public SkyBox(){
-        super(skyBoxMesh);
+    public Background(){
+        super(bgMesh);
         setPosition(0, 0, -190);
     }
 }

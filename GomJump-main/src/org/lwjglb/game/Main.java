@@ -8,7 +8,7 @@ public class Main {
 
     public static void main(String[] args) {
         try {
-            IGameLogic gameLogic = new GomGame();
+            IGameLogic gameLogic = new BBallGame();
             GameEngine gameEng = new GameEngine("Basket Bottle", 600, 960, true, gameLogic);
             gameEng.run();
         } catch (Exception exception) {

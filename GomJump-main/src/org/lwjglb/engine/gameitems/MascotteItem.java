@@ -11,7 +11,7 @@ import java.util.Random;
 
 import static org.joml.Math.sin;
 
-public class EnemyItem extends GameItem {
+public class MascotteItem extends GameItem {
 
 
     private final float rotx, roty, rotz;
@@ -22,8 +22,8 @@ public class EnemyItem extends GameItem {
     private static Mesh mesh;
 
     public static void init() throws Exception {
-        mesh = OBJLoader.loadMesh("/models/enemy.obj");
-        texture = new Texture("./textures/enemy.png");
+        mesh = OBJLoader.loadMesh("/models/mascotte.obj");
+        texture = new Texture("./textures/mascotte.png");
     }
 
     public static void clear(){
@@ -31,7 +31,7 @@ public class EnemyItem extends GameItem {
         texture = null;
     }
 
-    public EnemyItem(float x) {
+    public MascotteItem(float x) {
         super(mesh);
         Material material = new Material(new Vector4f(1, 0, 0, 1), 0.2f);
         getMesh().setMaterial(material);

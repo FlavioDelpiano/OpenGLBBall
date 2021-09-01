@@ -54,8 +54,7 @@ public class GameHud implements IHud {
         scoreTextItem.setPosition(10f, window.getHeight() - 90f, 0);
 
         if (lost) {
-            nameTextItem.setPosition(40f, window.getHeight() - 450f, 0);
-
+            nameTextItem.setPosition(55f, window.getHeight() - 450f, 0);
         }
     }
 

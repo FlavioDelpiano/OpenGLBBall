@@ -22,7 +22,6 @@ import java.util.Random;
 
 import static org.lwjgl.glfw.GLFW.*;
 
-//commit test consistenza
 public class BBallScene implements Scene{
     private ArrayList<MascotteItem> mascotteItems;
 
@@ -46,13 +45,9 @@ public class BBallScene implements Scene{
 
     private static final Random itemsRandom = new Random(System.currentTimeMillis());
 
-    private int livesCount = 3;
-
     private final Camera camera;
 
     private final GameData data;
-
-    private int notCreated = 0;
 
     private final SoundManager soundManager;
 
@@ -61,8 +56,6 @@ public class BBallScene implements Scene{
     private boolean start = false;
 
     private float interval;
-
-    private final PlayerBall[] lives = new PlayerBall[3]; // da creare un life item
 
     public BBallScene(GameData data) {
         soundManager = new SoundManager();
@@ -75,7 +68,6 @@ public class BBallScene implements Scene{
         ArrayList<GameItem> gameItems = new ArrayList<>();
         gameItems.add(character);
         gameItems.addAll(bottleItems);
-        gameItems.addAll(Arrays.asList(lives).subList(0, livesCount));
         gameItems.addAll(mascotteItems);
         return gameItems;
     }
@@ -89,7 +81,7 @@ public class BBallScene implements Scene{
             if (!start) return;
             final float verticalSpeed = 0.002f, horizontalSpeed = 1.2f;
 
-            if (character != null && hit == false) {
+            if (character != null && !hit) {
                 distance += characterSpeed * interval;
                 increaseScore(distance / 0.01);
                 previous_distance += distance;
@@ -97,14 +89,13 @@ public class BBallScene implements Scene{
 
                 character.rotateX(interval);
 
-                if (previous_distance > 0.025f) {
+                if (previous_distance > 0.0275f) {
                     try {
                         var val = itemsRandom.nextDouble();
 
-                       // if(score > ) {
-                            if (val >= 0.92) { // aggiungere all'if condizione di distanza minima
+                            if (val >= 0.96) {
                                 MascotteItem enemy = new MascotteItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
-                                if (val <= 0.95) {
+                                if (val <= 0.98) {
                                     bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f));// cambiare meto
                                 }
 
@@ -118,7 +109,7 @@ public class BBallScene implements Scene{
                                 if (set)
                                     mascotteItems.add(enemy);
                             }
-                     //   }
+
                         previous_distance = 0;
 
                     } catch (Exception ex) {
@@ -129,8 +120,7 @@ public class BBallScene implements Scene{
 
             characterSpeed += Math.log(1 + interval * verticalSpeed/4);
 
-
-            if (character != null && hit == false) {
+            if (character != null && !hit) {
                 ArrayList<GameItem> toRemoveBottles = new ArrayList<>();
                 bottleItems.forEach(c -> updateItem(c, toRemoveBottles));
                 bottleItems.removeAll(toRemoveBottles);
@@ -169,12 +159,10 @@ public class BBallScene implements Scene{
                 increaseScore(30);
             }
 
-            MascotteItem enemy = null;
 
             if (character != null) {
                 for (MascotteItem e : mascotteItems) {
                     if (e.isColliding(character.getCollider())) {
-                        enemy = e;
                         soundManager.playSoundSource("crash");
                         lost = true;
                         gameHud.setStatusText("GAME OVER");
@@ -185,9 +173,7 @@ public class BBallScene implements Scene{
                 }
             }
 
-            // decidere se lasciarla ad un certo livello o per sempre
-            if (score >= 0) mascotteItems.forEach(mascotteItem -> mascotteItem.updatePosition(interval));
-
+            if (score >= 200) mascotteItems.forEach(mascotteItem -> mascotteItem.updatePosition(interval));
 
             if (character != null) {
                 gameHud.setStatusText(String.format("%06d", score));
@@ -196,13 +182,11 @@ public class BBallScene implements Scene{
 
         } else if (character != null) { // da capire
             var vec = character.getPosition();
-            //characterSpeed -= gravity * interval;
-            //vec.y += characterSpeed;
             character.setPosition(vec);
             character.dying(interval);
         }
 
-        if (character == null || hit  == true) {
+        if (character == null || hit) {
             lost = true;
             gameHud.setStatusText("GAME OVER");
             gameHud.gameLost();
@@ -219,15 +203,6 @@ public class BBallScene implements Scene{
         } else
             item.setPosition(position);
     }
-
-   /* private void updateItem(GameItem item, ArrayList<GameItem> list) {
-        Vector3f position = item.getPosition();
-        position.x -= characterSpeed;
-        if (position.y <= -1.3f) {
-            list.add(item);
-        } else
-            item.setPosition(position);
-    }*/
 
     private void increaseScore(double value) {
         score += value;
@@ -275,8 +250,6 @@ public class BBallScene implements Scene{
         pointLight.setAttenuation(att);
 
         initSound();
-
-
     }
 
     public void initSound() throws Exception {

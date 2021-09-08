@@ -67,19 +67,4 @@ public class GameHud implements IHud {
 
     }
 
-    public void addChar(char c) {
-        if (name.length() < 5)
-            name.append(c);
-        nameValueTextItem.setText(name.toString());
-    }
-
-    public void delete() {
-        if (name.length() > 0) {
-            name.deleteCharAt(name.length() - 1);
-        }
-    }
-
-    public String getName() {
-        return name.toString();
-    }
 }

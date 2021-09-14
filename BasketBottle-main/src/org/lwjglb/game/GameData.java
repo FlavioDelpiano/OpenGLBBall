@@ -21,11 +21,4 @@ public class GameData {
         this.playerSkinIndex = playerSkinIndex;
     }
 
-    public int getBottleSkinIndex() {
-        return bottleSkinIndex;
-    }
-
-    public void setBottleSkinIndex(int bottleSkinIndex) {
-        this.bottleSkinIndex = bottleSkinIndex;
-    }
 }

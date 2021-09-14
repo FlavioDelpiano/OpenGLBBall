@@ -48,8 +48,6 @@ public class MenuScene implements Scene {
 
     PlayerBall playerBall;
 
-    BottleItem bottleItem;
-
     private GameData data;
 
     public MenuScene() {
@@ -197,13 +195,6 @@ public class MenuScene implements Scene {
     }
 
 
-    static private BottleItem createCoin(int position) {
-        BottleItem skin = new BottleItem(position);
-        skin.setPosition(0, 0, -0.08f);
-        skin.setScale(0.04f);
-        return skin;
-    }
-
     static private PlayerBall createSkin(int position) {
         PlayerBall skin = new PlayerBall(position, 0.6f);
         skin.setPosition(0 + position * 0.5f, -0.015f, -0.08f);
@@ -241,7 +232,7 @@ public class MenuScene implements Scene {
 
     @Override
     public IHud getHud() {
-        return /*state == State.HighScores ? highScoresHUD :*/ null;
+        return null;
     }
 
     @Override

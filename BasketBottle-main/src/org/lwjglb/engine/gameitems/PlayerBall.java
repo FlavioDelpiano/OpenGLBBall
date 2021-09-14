@@ -44,25 +44,6 @@ public class PlayerBall extends GameItem {
         setRotation(vec.x, vec.y, vec.z);
     }
 
-    /*
-    public void rotateLeft(float interval) {
-        Vector3f vec = getRotation();
-        float speed = 180;
-        vec.x += speed * interval;
-        vec.y -= speed * interval;
-        setRotation(vec.x, vec.y, vec.z);
-    }
-
-    public void rotateRight(float interval) {
-        Vector3f vec = getRotation();
-        float speed = 180;
-        vec.x += speed * interval;
-        vec.y += speed * interval;
-        setRotation(vec.x, vec.y, vec.z);
-    }
-
-     */
-
     public void dying(float interval) {
         Vector3f vec = getRotation();
         float speed = 360;
@@ -79,21 +60,4 @@ public class PlayerBall extends GameItem {
         setScale(scale);
     }
 
-    public void jumpAnimation(float speed, float maxCharSpeed) {
-        float threshold = maxCharSpeed / 6;
-        if (speed > maxCharSpeed - 0.003f) {
-            setScaleY(0.03f);
-            setScaleX(0.07f);
-        } else if (speed > maxCharSpeed - threshold) {
-            setScaleY(0.07f - (0.04f / (threshold - 0.003f) * (speed - maxCharSpeed + threshold)));
-            setScaleX(0.03f + (0.02f / (threshold - 0.003f) * ((speed - maxCharSpeed + threshold))));
-        } else if (speed > threshold) {
-            setScaleY(0.07f);
-            setScaleX(0.03f);
-        } else if (speed > 0 && speed <= threshold) {
-            setScaleY(0.07f - (0.02f / threshold * (threshold - speed)));
-            setScaleX(0.05f - (0.02f / threshold * speed));
-        } else
-            setScale(0.05f);
-    }
 }

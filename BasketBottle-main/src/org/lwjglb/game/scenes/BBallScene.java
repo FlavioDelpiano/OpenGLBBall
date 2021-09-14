@@ -57,6 +57,10 @@ public class BBallScene implements Scene{
 
     private float interval;
 
+    private int special;
+
+    private int safeFrames;
+
     public BBallScene(GameData data) {
         soundManager = new SoundManager();
         camera = new Camera();
@@ -161,16 +165,22 @@ public class BBallScene implements Scene{
 
 
             if (character != null) {
-                for (MascotteItem e : mascotteItems) {
-                    if (e.isColliding(character.getCollider())) {
-                        soundManager.playSoundSource("crash");
-                        lost = true;
-                        gameHud.setStatusText("GAME OVER");
-                        gameHud.gameLost();
-                        characterSpeed = 0;
-                        break;
+                if(safeFrames > 0){
+                    safeFrames--;
+                }
+                else{
+                    for (MascotteItem e : mascotteItems) {
+                        if (e.isColliding(character.getCollider())) {
+                            soundManager.playSoundSource("crash");
+                            lost = true;
+                            gameHud.setStatusText("GAME OVER");
+                            gameHud.gameLost();
+                            characterSpeed = 0;
+                            break;
+                        }
                     }
                 }
+
             }
 
             if (score >= 200) mascotteItems.forEach(mascotteItem -> mascotteItem.updatePosition(interval));
@@ -180,7 +190,7 @@ public class BBallScene implements Scene{
             }
 
 
-        } else if (character != null) { // da capire
+        } else if (character != null) {
             var vec = character.getPosition();
             character.setPosition(vec);
             character.dying(interval);
@@ -220,6 +230,12 @@ public class BBallScene implements Scene{
                 right = true;
             }
 
+            if (window.isKeyDown(GLFW_KEY_SPACE) && character != null && special > 0) {
+                safeFrames = 120;
+                special--;
+                gameHud.setSpecialText(String.format("Special Saves: %1d", special));
+            }
+
             if (!start && window.isKeyDown(GLFW_KEY_ENTER))
                 start = true;
         }
@@ -230,8 +246,11 @@ public class BBallScene implements Scene{
     @Override
     public void init(Window window, GameData data) throws Exception {
         MascotteItem.init();
-        gameHud = new GameHud("Press enter to start");
+        gameHud = new GameHud("Press enter to start", "Special Saves: 3");
         gameHud.updateSize(window);
+
+        special = 3;
+        safeFrames = 0;
 
         character = new PlayerBall(data.getPlayerSkinIndex(), 0.06f);
         Vector3f position = character.getPosition();
@@ -244,7 +263,7 @@ public class BBallScene implements Scene{
         ambientLight = new Vector3f(0.3f, 0.3f, 0.3f);
         Vector3f lightColour = new Vector3f(1, 1, 1);
         Vector3f lightPosition = new Vector3f(0, 0, 1);
-        float lightIntensity = 6.0f;
+        float lightIntensity = 9.0f;
         pointLight = new PointLight(lightColour, lightPosition, lightIntensity);
         PointLight.Attenuation att = new PointLight.Attenuation(0.0f, 0.0f, 1.0f);
         pointLight.setAttenuation(att);

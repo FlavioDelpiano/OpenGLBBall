@@ -20,19 +20,24 @@ public class GameHud implements IHud {
 
     private final ArrayList<GameItem> gameItems = new ArrayList<>();
 
-    private final TextItem scoreTextItem, nameTextItem, nameValueTextItem;
+    private final TextItem scoreTextItem, specialTextItem, nameTextItem, nameValueTextItem;
 
     private final StringBuilder name = new StringBuilder("");
 
     boolean lost = false;
 
-    public GameHud(String statusText) throws Exception {
+    public GameHud(String statusText, String specials) throws Exception {
         FontTexture fontTexture = new FontTexture(FONT, CHARSET), nameFontTexture = new FontTexture(NAMEFONT, CHARSET);
         scoreTextItem = new TextItem(statusText, fontTexture);
         scoreTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
 
+        specialTextItem = new TextItem(statusText, fontTexture);
+        specialTextItem.getMesh().getMaterial().setAmbientColour(new Vector4f(1, 1, 1, 0));
+
         gameItems.add(scoreTextItem);
+        gameItems.add(specialTextItem);
         scoreTextItem.setText(statusText);
+        specialTextItem.setText(specials);
 
         nameTextItem = new TextItem("", nameFontTexture);
         nameValueTextItem = new TextItem("", nameFontTexture);
@@ -42,6 +47,10 @@ public class GameHud implements IHud {
         this.scoreTextItem.setText(statusText);
     }
 
+    public void setSpecialText(String specialText) {
+        this.specialTextItem.setText(specialText);
+    }
+
 
     @Override
     public List<GameItem> getGameItems() {
@@ -49,8 +58,6 @@ public class GameHud implements IHud {
     }
 
     public void updateSize(Window window) {
-
-
         scoreTextItem.setPosition(10f, window.getHeight() - 90f, 0);
 
         if (lost) {

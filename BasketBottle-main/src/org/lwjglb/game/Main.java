@@ -3,6 +3,8 @@ package org.lwjglb.game;
 import org.lwjglb.engine.GameEngine;
 import org.lwjglb.engine.IGameLogic;
 
+import java.util.prefs.Preferences;
+
 
 public class Main {
 

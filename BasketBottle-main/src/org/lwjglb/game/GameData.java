@@ -3,7 +3,6 @@ package org.lwjglb.game;
 public class GameData {
     private boolean endGame = false;
     private int playerSkinIndex = 0;
-    private int bottleSkinIndex = 0;
 
     public boolean isEndGame() {
         return endGame;

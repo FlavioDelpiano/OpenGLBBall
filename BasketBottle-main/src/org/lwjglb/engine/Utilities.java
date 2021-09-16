@@ -22,6 +22,7 @@ public class Utilities {
 
     public static void initItems() throws Exception {
         BottleItem.initBottle();
+        MalusItem.initMalus();
         PlayerBall.init();
         Background.init();
     }

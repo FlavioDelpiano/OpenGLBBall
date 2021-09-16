@@ -19,6 +19,7 @@ import org.lwjglb.game.HUD.GameHud;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Random;
+import java.util.prefs.Preferences;
 
 import static org.lwjgl.glfw.GLFW.*;
 
@@ -26,6 +27,8 @@ public class BBallScene implements Scene{
     private ArrayList<MascotteItem> mascotteItems;
 
     private ArrayList<BottleItem> bottleItems;
+
+    private ArrayList<MalusItem> malusItems;
 
     private PlayerBall character;
 
@@ -36,6 +39,8 @@ public class BBallScene implements Scene{
     private PointLight pointLight;
 
     long score = 0;
+
+    long highScore = 0;
 
     private Background background;
 
@@ -70,8 +75,10 @@ public class BBallScene implements Scene{
     @Override
     public List<GameItem> getGameItems() {
         ArrayList<GameItem> gameItems = new ArrayList<>();
-        gameItems.add(character);
+        if ((safeFrames % 10) != 1)
+            gameItems.add(character);
         gameItems.addAll(bottleItems);
+        gameItems.addAll(malusItems);
         gameItems.addAll(mascotteItems);
         return gameItems;
     }
@@ -98,9 +105,22 @@ public class BBallScene implements Scene{
                         var val = itemsRandom.nextDouble();
 
                             if (val >= 0.96) {
-                                MascotteItem enemy = new MascotteItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
+                                MascotteItem enemy = new MascotteItem(itemsRandom.nextFloat() * 1.2f - 0.5f);
                                 if (val <= 0.98) {
-                                    bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f));// cambiare meto
+                                    bottleItems.add(new BottleItem(itemsRandom.nextFloat() * 1.4f - 0.7f));
+                                }
+
+                                if (val <= 0.97) {
+                                    boolean setMalus = true;
+                                    MalusItem m = new MalusItem(itemsRandom.nextFloat() * 1.4f - 0.7f);
+                                    for (var b : bottleItems) {
+                                        if (b.isColliding(m.getCollider())) {
+                                            setMalus = false;
+                                            break;
+                                        }
+                                    }
+
+                                    if(setMalus) malusItems.add(m);
                                 }
 
                                 boolean set = true;
@@ -110,6 +130,22 @@ public class BBallScene implements Scene{
                                         break;
                                     }
                                 }
+
+                                for (var b : malusItems) {
+                                    if (b.isColliding(enemy.getCollider())) {
+                                        set = false;
+                                        break;
+                                    }
+                                }
+
+                                for(var b : mascotteItems){
+                                    if(b.isColliding(enemy.getCollider())){
+                                        set = false;
+                                        break;
+                                    }
+                                }
+
+
                                 if (set)
                                     mascotteItems.add(enemy);
                             }
@@ -128,6 +164,11 @@ public class BBallScene implements Scene{
                 ArrayList<GameItem> toRemoveBottles = new ArrayList<>();
                 bottleItems.forEach(c -> updateItem(c, toRemoveBottles));
                 bottleItems.removeAll(toRemoveBottles);
+
+                ArrayList<GameItem> toRemoveMalus = new ArrayList<>();
+                malusItems.forEach(m -> updateItem(m, toRemoveMalus));
+                malusItems.removeAll(toRemoveBottles);
+
                 ArrayList<GameItem> toRemoveEnemy = new ArrayList<>();
                 mascotteItems.forEach(mascotteItem -> updateItem(mascotteItem, toRemoveEnemy));
                 mascotteItems.removeAll(toRemoveEnemy);
@@ -149,6 +190,8 @@ public class BBallScene implements Scene{
             }
 
             BottleItem bottle = null;
+            MalusItem malus = null;
+
             if (character != null) {
                 for (BottleItem b : bottleItems) {
                     if (b.isColliding(character.getCollider())) {
@@ -157,10 +200,25 @@ public class BBallScene implements Scene{
                         break;
                     }
                 }
-            }
-            if (bottle != null) {
-                bottleItems.remove(bottle);
-                increaseScore(30);
+
+                if (bottle != null) {
+                    bottleItems.remove(bottle);
+                    increaseScore(30);
+                }
+
+                for (MalusItem m : malusItems) {
+                    if (m.isColliding(character.getCollider())) {
+                        malus = m;
+                        soundManager.playSoundSource("malus");
+                        break;
+                    }
+                }
+
+                if (malus != null) {
+                    malusItems.remove(malus);
+                    if(score > 20) increaseScore(-20);
+                    else score = 1;
+                }
             }
 
 
@@ -176,6 +234,10 @@ public class BBallScene implements Scene{
                             gameHud.setStatusText("GAME OVER");
                             gameHud.gameLost();
                             characterSpeed = 0;
+                            if(score > highScore) {
+                                Preferences.systemRoot().putLong("record", score);
+                                System.out.println(Preferences.systemRoot().getLong("record", 0));
+                            }
                             break;
                         }
                     }
@@ -184,6 +246,8 @@ public class BBallScene implements Scene{
             }
 
             if (score >= 200) mascotteItems.forEach(mascotteItem -> mascotteItem.updatePosition(interval));
+            bottleItems.forEach(b -> b.rotate(interval));
+            malusItems.forEach(m -> m.rotate(interval));
 
             if (character != null) {
                 gameHud.setStatusText(String.format("%06d", score));
@@ -221,6 +285,9 @@ public class BBallScene implements Scene{
     @Override
     public void input(Window window) {
 
+        if (window.isKeyDown(GLFW_KEY_ESCAPE))
+            running = false;
+
         if (!lost) {
             if ((window.isKeyPressed(GLFW_KEY_LEFT) || window.isKeyPressed(GLFW_KEY_A)) && character != null && character.getPosition().x > -0.6) {
                 left = true;
@@ -239,8 +306,7 @@ public class BBallScene implements Scene{
             if (!start && window.isKeyDown(GLFW_KEY_ENTER))
                 start = true;
         }
-        if (window.isKeyPressed(GLFW_KEY_ESCAPE))
-            running = false;
+
     }
 
     @Override
@@ -252,11 +318,14 @@ public class BBallScene implements Scene{
         special = 3;
         safeFrames = 0;
 
+        highScore = Preferences.systemRoot().getLong("record", 0);
+
         character = new PlayerBall(data.getPlayerSkinIndex(), 0.06f);
         Vector3f position = character.getPosition();
         position.y -= 0.6f;
         character.setPosition(position);
         bottleItems = new ArrayList<>();
+        malusItems = new ArrayList<>();
         mascotteItems = new ArrayList<>();
 
         background = new Background();
@@ -282,7 +351,7 @@ public class BBallScene implements Scene{
         soundManager.addSoundSource("soundtrack", sourceSoundtrack);
 
         soundManager.setListener(new SoundListener(new Vector3f()));
-        soundManager.setVolume("soundtrack", 0.25f);
+        soundManager.setVolume("soundtrack", 0.1f);
         soundManager.playSoundSource("soundtrack");
 
         SoundBuffer buffBottle = new SoundBuffer("/sound/bottle.ogg");
@@ -290,7 +359,14 @@ public class BBallScene implements Scene{
         SoundSource sourceBottle = new SoundSource(false, false);
         sourceBottle.setBuffer(buffBottle.getBufferId());
         soundManager.addSoundSource("bottle", sourceBottle);
-        soundManager.setVolume("bottle", 1.5f);
+        soundManager.setVolume("bottle", 1f);
+
+        SoundBuffer buffMalus = new SoundBuffer("/sound/malus.ogg");
+        soundManager.addSoundBuffer(buffMalus);
+        SoundSource sourceMalus = new SoundSource(false, false);
+        sourceMalus.setBuffer(buffMalus.getBufferId());
+        soundManager.addSoundSource("malus", sourceMalus);
+        soundManager.setVolume("malus", 2f);
 
         SoundBuffer buffCrash = new SoundBuffer("/sound/crash.ogg");
         soundManager.addSoundBuffer(buffCrash);

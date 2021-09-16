@@ -10,7 +10,7 @@ import org.lwjglb.engine.graph.Texture;
 import java.awt.geom.Rectangle2D;
 
 
-public class BottleItem extends GameItem {
+public class MalusItem extends GameItem {
 
     static Mesh mesh;
 
@@ -18,14 +18,14 @@ public class BottleItem extends GameItem {
 
     static Texture texture;
 
-    public static void initBottle() throws Exception {
+    public static void initMalus() throws Exception {
         mesh = OBJLoader.loadMesh("/models/bottle.obj");
         material = new Material(new Vector4f(1.0f, 1.0f, 0.0f, 1.0f), 1f);
         mesh.setMaterial(material);
-        texture = new Texture("./textures/bottle.png");
+        texture = new Texture("./textures/malus.png");
     }
 
-    public BottleItem(float x){
+    public MalusItem(float x){
         super(mesh);
         material.setTexture(texture);
         mesh.setMaterial(material);

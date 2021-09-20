@@ -1,0 +1,24 @@
+# Blender MTL File: 'stadio.blend'
+# Material Count: 2
+
+newmtl TabellonePubblicitario_corto
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.006840 0.006840 0.006840
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+
+newmtl TabellonePubblicitario_lungo_schermo.002
+Ns 225.000000
+Ka 1.000000 1.000000 1.000000
+Kd 0.006840 0.006840 0.006840
+Ks 0.500000 0.500000 0.500000
+Ke 0.000000 0.000000 0.000000
+Ni 1.450000
+d 1.000000
+illum 2
+map_Kd C:\\Users\\nikvi\\Desktop\\NICK\\3D\\INFORMATICA_GRAFICA\\ASSETS\\TABELLONI_PUBBLICITARI\\textures\\tabellone_lungo_TabellonePubblicitario_lungo_schermo_BaseColor.png
+map_Ke C:\\Users\\nikvi\\Desktop\\NICK\\3D\\INFORMATICA_GRAFICA\\ASSETS\\TABELLONI_PUBBLICITARI\\textures\\tabellone_lungo_TabellonePubblicitario_lungo_schermo_Emissive.png

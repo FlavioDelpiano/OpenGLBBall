@@ -102,7 +102,6 @@ public class Renderer {
 
         renderGameItems(window, camera, gameItems, ambientLight, pointLight);
         renderHud(window, gameHud);
-
     }
 
     private void renderGameItems(Window window, Camera camera, List<GameItem> gameItems, Vector3f ambientLight, PointLight pointLight) {

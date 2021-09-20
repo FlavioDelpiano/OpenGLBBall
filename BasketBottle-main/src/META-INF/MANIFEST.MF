@@ -1,0 +1,4 @@
+Manifest-Version: 1.0
+Main-Class: org.lwjglb.game.Main
+Class-Path: joml-1.10.1-javadoc
+
